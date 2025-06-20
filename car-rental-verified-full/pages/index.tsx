@@ -7,11 +7,13 @@ export default function Home() {
   const [cars, setCars] = useState<string[]>([]);
 
   useEffect(() => {
-    const carRef = ref(db, 'automobiliai');;
+    const carRef = ref(db, 'automobiliai');
     onValue(carRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
         setCars(Object.keys(data));
+      } else {
+        setCars([]); // jei nieko nėra – išvalom sąrašą
       }
     });
   }, []);
@@ -19,7 +21,11 @@ export default function Home() {
   return (
     <main className="p-6">
       <h1 className="text-2xl font-bold mb-4">🚗 Automobilių Nuoma</h1>
-      {cars.length === 0 && <p>Automobilių dar nėra</p>}
+      
+      {cars.length === 0 && (
+        <p className="text-gray-500">Automobilių dar nėra</p>
+      )}
+
       {cars.map((plate) => (
         <div key={plate} className="mb-8">
           <h2 className="text-xl font-semibold mb-2">{plate}</h2>
