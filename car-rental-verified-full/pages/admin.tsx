@@ -17,10 +17,13 @@ export default function Admin() {
   };
 
   const handleAddCar = () => {
-    if (plate.trim() === '') return;
-    const days = Array(31).fill(false);
-    set(ref(db, 'cars/' + plate), days);
-    setPlate('');
+  if (plate.trim() === '') return;
+  const days = Array(31).fill(false);
+  set(ref(db, 'automobiliai/' + plate), {
+    pavadinimas: plate,
+    dienos: days
+  });
+  setPlate('');
   };
 
   if (!auth) {
