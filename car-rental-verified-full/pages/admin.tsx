@@ -17,13 +17,17 @@ export default function Admin() {
   };
 
   const handleAddCar = () => {
-  if (plate.trim() === '') return;
-  const days = Array(31).fill(false);
-  set(ref(db, 'automobiliai/' + plate), {
-    pavadinimas: plate,
-    dienos: days
-  });
-  setPlate('');
+    if (plate.trim() === '') return;
+
+    const days = Array(31).fill(false);
+
+    // ✅ Įrašome teisingai į `automobiliai/NUMERIS`
+    set(ref(db, 'automobiliai/' + plate), {
+      pavadinimas: plate,
+      dienos: days
+    });
+
+    setPlate('');
   };
 
   if (!auth) {
@@ -59,12 +63,17 @@ export default function Admin() {
           ➕ Pridėti automobilį
         </button>
       </div>
+
       {plate && (
         <>
           <h2 className="text-xl font-semibold mt-4">{plate}</h2>
           <Calendar plate={plate} editable={true} />
         </>
       )}
+    </main>
+  );
+}
+
     </main>
   );
 }
