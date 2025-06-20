@@ -21,7 +21,6 @@ export default function Admin() {
 
     const days = Array(31).fill(false);
 
-    // ✅ Įrašome teisingai į `automobiliai/NUMERIS`
     set(ref(db, 'automobiliai/' + plate), {
       pavadinimas: plate,
       dienos: days
@@ -70,10 +69,6 @@ export default function Admin() {
           <Calendar plate={plate} editable={true} />
         </>
       )}
-    </main>
-  );
-}
-
     </main>
   );
 }
