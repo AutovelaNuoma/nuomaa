@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { db } from '../utils/firebase';
 import { ref, onValue, set } from 'firebase/database';
 
-export default function Calendar({ plate, editable }: { plate: string, editable: boolean }) {
+export default function Calendar({ plate, editable }: { plate: string; editable: boolean }) {
   const [days, setDays] = useState<boolean[]>(Array(31).fill(false));
   const [daysInMonth, setDaysInMonth] = useState<number>(30);
 
@@ -11,11 +11,12 @@ export default function Calendar({ plate, editable }: { plate: string, editable:
     const total = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
     setDaysInMonth(total);
 
-    const carRef = ref(db, 'cars/' + plate);
+    const carRef = ref(db, 'automobiliai/' + plate);
+
     onValue(carRef, (snapshot) => {
       const data = snapshot.val();
-      if (data && Array.isArray(data)) {
-        setDays(data.slice(0, total));
+      if (data?.dienos && Array.isArray(data.dienos)) {
+        setDays(data.dienos.slice(0, total));
       }
     });
   }, [plate]);
@@ -24,7 +25,9 @@ export default function Calendar({ plate, editable }: { plate: string, editable:
     if (!editable) return;
     const updated = [...days];
     updated[i] = !updated[i];
-    set(ref(db, 'cars/' + plate), updated);
+
+    set(ref(db, 'automobiliai/' + plate + '/dienos'), updated);
+    setDays(updated);
   };
 
   return (
