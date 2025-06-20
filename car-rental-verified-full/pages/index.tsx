@@ -7,7 +7,7 @@ export default function Home() {
   const [cars, setCars] = useState<string[]>([]);
 
   useEffect(() => {
-    const carRef = ref(db, 'cars');
+    const carRef = ref(db, 'automobiliai');;
     onValue(carRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
