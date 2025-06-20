@@ -33,7 +33,7 @@ export default function Calendar({ plate, editable }: { plate: string, editable:
         <button
           key={i}
           onClick={() => toggle(i)}
-          className={\`px-3 py-2 rounded text-white \${days[i] ? 'bg-red-500' : 'bg-green-500'}\`}
+          className={`px-3 py-2 rounded text-white ${days[i] ? 'bg-red-500' : 'bg-green-500'}`}
         >
           {i + 1}
         </button>
